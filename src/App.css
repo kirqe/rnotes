@@ -1,0 +1,25 @@
+
+.container {
+  padding-top: 50px;
+}
+
+.notes_form {
+  margin-bottom: 20px;
+}
+
+.note_body {
+  word-wrap: break-word;
+  background-color: whitesmoke;
+  border-radius: 3px;
+  padding: 10px 20px;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.note_body h1, h2, h3 {
+  font-size: 40px;
+}
+
+.note_body div, a {
+  display: inline-block;
+}
