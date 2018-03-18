@@ -1,17 +1,18 @@
 import React, { Component } from "react"
+import PropTypes from 'prop-types'
 import { connect } from "react-redux"
 import { bindActionCreators } from "redux"
 // import * as formActions from '../actions/FormActions'
 
-import { createNote } from "../actions/FormActions"
+import { createNote } from "../actions/NotesActions"
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({ createNote }, dispatch);
 }
 
 class NewNoteForm extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
 
     this.state = {
       note: {
@@ -22,24 +23,31 @@ class NewNoteForm extends Component {
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleKeyUp = this.handleKeyUp.bind(this);
+    this.isValidNote = this.isValidNote.bind(this);
   }
 
   handleChange(event) {
-    this.setState({ note: { body: event.target.value } })
+    this.setState({ note: { [event.target.name]: event.target.value } })
+  }
+
+  isValidNote(note) {
+    const { body } = note
+    if (body === null || body === "" ||
+        body === "\n" || typeof body === "undefined") {
+      this.setState({ note: { body: "" }})
+      return false;
+    }
+    return true;
   }
 
   handleSubmit(event) {
     event.preventDefault()
-    const { body } = this.state.note
-    if (body === null ||
-        body === ""  ||
-        body === "\n" ||
-        typeof body === "undefined") {
-      this.setState({ note: { body: "" }})
-      return;
+    const note = this.state.note
+
+    if (this.isValidNote(note)) {
+      this.props.createNote(note)
+      this.setState({note: { body: "" }})
     }
-    this.props.createNote(this.state)
-    this.setState({note: { body: "" }})
   }
 
   handleKeyUp(event) {
@@ -69,6 +77,10 @@ class NewNoteForm extends Component {
     )
   }
 }
+
+// NewNoteForm.propTypes = {
+//   createNote: PropTypes.func.createNote.isRequired
+// }
 
 const NoteForm = connect(null, mapDispatchToProps)(NewNoteForm)
 export default NoteForm;

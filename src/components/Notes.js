@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+import PropTypes from 'prop-types'
 import { connect } from "react-redux"
 import { bindActionCreators } from "redux"
 import marked from "marked"
@@ -6,7 +7,8 @@ import marked from "marked"
 import { getNotes, deleteNote } from "../actions/NotesActions";
 
 const mapStateToProps = (state) => {
-  return { notes: state.notes }
+  // state.notes.notes because reducer name is notes
+  return { notes: state.notes.notes }
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -15,7 +17,7 @@ const mapDispatchToProps = (dispatch) => {
 
 
 class NotesList extends Component {
-  componentDidMount() {
+  componentWillMount() {
     this.props.getNotes()
   }
 
@@ -31,6 +33,11 @@ class NotesList extends Component {
       </ul>
     )
   }
+}
+
+NotesList.propTypes = {
+  getNotes: PropTypes.func.isRequired,
+  notes: PropTypes.array
 }
 
 const Notes = connect(mapStateToProps, mapDispatchToProps)(NotesList);
