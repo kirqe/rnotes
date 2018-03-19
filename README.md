@@ -10,4 +10,4 @@ helpful resources:
 
 
 - [react-router-dom/docs/guides/quick-start](https://github.com/ReactTraining/react-router/blob/master/packages/react-router-dom/docs/guides/quick-start.md)
-- [/react-router-dom/docs/api/HashRouter](https://github.com/ReactTraining/react-router/blob/master/packages/react-router-dom/docs/api/HashRouter.md)
+- [react-router-dom/docs/api/HashRouter](https://github.com/ReactTraining/react-router/blob/master/packages/react-router-dom/docs/api/HashRouter.md)
